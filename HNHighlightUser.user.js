@@ -39,7 +39,7 @@ var highlightClass = "<style>.highlight {background-color:#FFB380;}</style>";
 
 if (window.location.pathname === "/item") {
 
-    $("body").prepend('<canvas id="identiconCanvas" style="display:none;" width="'+ IDENTICON_SIZE +'" height="'+ IDENTICON_SIZE +'"></canvas>');
+    $("body").prepend(highlightClass + '<canvas id="identiconCanvas" style="display:none;" width="'+ IDENTICON_SIZE +'" height="'+ IDENTICON_SIZE +'"></canvas>');
 	
     $("span.comhead").each(function() {
         var commentDetails = $(this).text().match(/([A-Za-z0-9_]+) ([0-9]{0,3} (?:minutes?|hours?|days?|years?) ago)/);
