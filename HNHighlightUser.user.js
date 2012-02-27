@@ -7,7 +7,7 @@
 // @require        https://raw.github.com/SamHasler/identicon/master/identicon.js
 // ==/UserScript==
 
-var IDENTICON_SIZE = 11;
+var IDENTICON_SIZE = 16;
 
 //From http://stackoverflow.com/a/8076436/2541
 function hashCode(string){
@@ -35,11 +35,15 @@ function getDataUrlForAuthor(author){
 }
 
 //the style that is applied to highlighted posts.
-var highlightClass = "<style>.highlight {background-color:#FFB380;}</style>";
+var classes = "<style>"
+        +".highlight {background-color:#FFB380;}"
+    +"span.identicon {position: relative;width: 20px;margin-right: 20px;}"
+    +".identicon img {position: absolute;opacity: 0.5}"
+    +"</style>";
 
 if (window.location.pathname === "/item") {
 
-    $("body").prepend(highlightClass + '<canvas id="identiconCanvas" style="display:none;" width="'+ IDENTICON_SIZE +'" height="'+ IDENTICON_SIZE +'"></canvas>');
+    $("body").prepend(classes + '<canvas id="identiconCanvas" style="display:none;" width="'+ IDENTICON_SIZE +'" height="'+ IDENTICON_SIZE +'"></canvas>');
 	
     $("span.comhead").each(function() {
         var commentDetails = $(this).text().match(/([A-Za-z0-9_]+) ([0-9]{0,3} (?:minutes?|hours?|days?|years?) ago)/);
@@ -50,7 +54,7 @@ if (window.location.pathname === "/item") {
             var commentAuthor = commentDetails[1];
             
 			//very simple setup here.  Each highlight link's id is the author
-            $(this).prepend("<img class='highlightLink' id='" + commentAuthor + "' src='" + getDataUrlForAuthor(commentAuthor) + "'> ");
+            $(this).prepend("<span class='identicon'><img class='highlightLink' id='" + commentAuthor + "' src='" + getDataUrlForAuthor(commentAuthor) + "'></span>");
 
 			//and each comment table row gets a class name that corresponds to the author
 			$(this).parents().eq(1).addClass(commentAuthor);
